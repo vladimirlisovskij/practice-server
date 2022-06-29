@@ -1,0 +1,23 @@
+CREATE TABLE user (
+    nickName TEXT NOT NULL,
+    type TEXT NOT NULL,
+    uid INTEGER NOT NULL UNIQUE,
+    password BLOB NOT NULL,
+    salt BLOB NOT NULL,
+
+
+    PRIMARY KEY (nickName, type)
+);
+
+insertUser:
+INSERT INTO user(nickName, type, uid, password, salt)
+VALUES (?, ?, ?, ?, ?);
+
+getUserByUid:
+SELECT * FROM user
+WHERE uid = ?;
+
+getUserByNickname:
+SELECT * FROM user
+WHERE nickName = ? AND type = ?;
+

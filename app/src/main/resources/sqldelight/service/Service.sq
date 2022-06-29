@@ -1,0 +1,34 @@
+CREATE TABLE "service" (
+	"id"	INTEGER NOT NULL,
+	"title"	TEXT NOT NULL,
+	"description"	TEXT NOT NULL,
+	"startTime"	INTEGER NOT NULL,
+	"endTime"	INTEGER NOT NULL,
+	"ownerId"	INTEGER NOT NULL,
+	PRIMARY KEY("id")
+);
+
+insertService:
+INSERT INTO service(id, ownerId, title, description, startTime, endTime)
+VALUES (?,?, ?, ?, ?, ?);
+
+getService:
+SELECT * FROM service
+WHERE id = ?;
+
+getServiceListForCategory:
+SELECT service.id, service.title, service.description FROM service
+INNER JOIN category_service
+ON category_service.serviceId = service.id
+WHERE CASE
+    WHEN :ownerId IS NOT NULL THEN service.ownerId = :ownerId AND category_service.categoryId = :categoryId
+    ELSE  category_service.categoryId = :categoryId
+END
+LIMIT :limit
+OFFSET :limit * :page;
+
+getServiceList:
+SELECT service.id, service.title, service.description FROM service
+WHERE CASE WHEN :ownerId IS NOT NULL THEN service.ownerId = :ownerId END
+LIMIT :limit
+OFFSET :limit * :page;

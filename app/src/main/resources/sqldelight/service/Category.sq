@@ -1,0 +1,15 @@
+CREATE TABLE "category" (
+	"id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	"name"	TEXT NOT NULL UNIQUE
+);
+
+BEGIN TRANSACTION;
+    INSERT INTO category(name) VALUES ("123");
+    INSERT INTO category(name) VALUES ("456");
+    INSERT INTO category(name) VALUES ("123");
+    INSERT INTO category(name) VALUES ("123");
+    INSERT INTO category(name) VALUES ("123");
+COMMIT;
+
+getCategories:
+SELECT * FROM category;

@@ -1,0 +1,13 @@
+CREATE TABLE "custom_sequence" (
+	"table_name" TEXT NOT NULL,
+	"key_id" INTEGER NOT NULL,
+	PRIMARY KEY("table_name")
+);
+
+insertOrReplace:
+INSERT OR REPLACE INTO custom_sequence(table_name, key_id)
+VALUES (?, ?);
+
+getTableKeyId:
+SELECT custom_sequence.key_id FROM custom_sequence
+WHERE table_name = ?;

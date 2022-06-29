@@ -1,0 +1,20 @@
+CREATE TABLE legal (
+    uid INTEGER NOT NULL,
+    organizationName TEXT NOT NULL,
+
+    PRIMARY KEY (uid)
+);
+
+insertLegal:
+INSERT INTO legal(uid, organizationName)
+VALUES ?;
+
+getLegalByNickname:
+SELECT legal.*
+FROM user INNER JOIN legal
+ON user.uid = legal.uid
+WHERE user.nickName = ? AND user.type = "LEGAL";
+
+getLegalByUid:
+SELECT * FROM legal
+WHERE uid = ?;

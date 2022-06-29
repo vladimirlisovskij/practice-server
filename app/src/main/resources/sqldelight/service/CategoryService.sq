@@ -1,0 +1,14 @@
+CREATE TABLE "category_service" (
+	"categoryId"	INTEGER NOT NULL,
+	"serviceId"	INTEGER NOT NULL,
+	PRIMARY KEY("categoryId","serviceId")
+);
+
+addCategory:
+INSERT INTO category_service(categoryId, serviceId)
+VALUES (?, ?);
+
+getServiceCategories:
+SELECT categoryId
+FROM category_service
+WHERE serviceId = ?;

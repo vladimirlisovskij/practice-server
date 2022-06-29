@@ -1,0 +1,20 @@
+CREATE TABLE individual (
+    uid INTEGER NOT NULL,
+    fullName TEXT NOT NULL,
+
+    PRIMARY KEY (uid)
+);
+
+insertIndividual:
+INSERT INTO individual(uid, fullName)
+VALUES ?;
+
+getIndividualByNickname:
+SELECT individual.*
+FROM user INNER JOIN individual
+ON user.uid = individual.uid
+WHERE user.nickName = ? AND user.type = "INDIVIDUAL";
+
+getIndividualByUid:
+SELECT * FROM individual
+WHERE uid = ?;
