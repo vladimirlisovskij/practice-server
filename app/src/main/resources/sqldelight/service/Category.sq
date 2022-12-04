@@ -6,9 +6,6 @@ CREATE TABLE "category" (
 BEGIN TRANSACTION;
     INSERT INTO category(name) VALUES ("123");
     INSERT INTO category(name) VALUES ("456");
-    INSERT INTO category(name) VALUES ("123");
-    INSERT INTO category(name) VALUES ("123");
-    INSERT INTO category(name) VALUES ("123");
 COMMIT;
 
 getCategories:
