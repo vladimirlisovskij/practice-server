@@ -11,16 +11,29 @@ import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
+import javax.inject.Qualifier
+import javax.inject.Scope
+import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class HostInterface
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class HostPort
 
 @Module
 object NetworkModule {
     @Provides
     @AppScope
     fun provideEngine(
+        @HostInterface hostInterface: String,
+        @HostPort hostPort: Int,
         unAuthorizedRequestComponentFactory: UnAuthorizedRequestComponent.Factory,
         authorizedRequestComponentFactory: AuthorizedRequestComponent.Factory
     ): ApplicationEngine {
-        return embeddedServer(Netty, port = 8080, host = "192.168.0.104") {
+        return embeddedServer(Netty, port = hostPort, host = hostInterface) {
             configureApplication()
             configureRouting(unAuthorizedRequestComponentFactory, authorizedRequestComponentFactory)
         }

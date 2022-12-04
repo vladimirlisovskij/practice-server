@@ -5,10 +5,16 @@ import com.practice.server.di.scopes.AppScope
 import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import dagger.Module
 import dagger.Provides
+import javax.inject.Qualifier
 
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DatabasePath
 @Module
 object DatabaseModule {
     @AppScope
     @Provides
-    fun provideDatabase() = Database(JdbcSqliteDriver("jdbc:sqlite:myServicesBd.sqlite3"))
+    fun provideDatabase(
+        @DatabasePath databasePath: String
+    ) = Database(JdbcSqliteDriver("jdbc:sqlite:$databasePath"))
 }
