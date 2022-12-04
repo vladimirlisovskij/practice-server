@@ -1,10 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    application
+
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.kotlin.kapt)
+}
+
+application {
+    mainClass.set("com.practice.server.MainKt")
 }
 
 group = "org.example"
